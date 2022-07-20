@@ -1,5 +1,3 @@
 <template>
-  <div class="about">
-    <h1>DENGL</h1>
-  </div>
+  <div class="login_main"></div>
 </template>
