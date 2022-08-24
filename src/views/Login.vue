@@ -12,6 +12,7 @@
         <el-form-item prop="username">
           <el-input
             v-model="loginForm.username"
+            prefix-icon="iconfont icon-user"
             placeholder="请输入用户名"
           ></el-input>
         </el-form-item>
@@ -19,6 +20,7 @@
         <el-form-item prop="password">
           <el-input
             v-model="loginForm.password"
+            prefix-icon="iconfont icon-lock_fill"
             placeholder="请输入密码"
             type="password"
           ></el-input>
@@ -36,58 +38,58 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "admin",
-        password: "123456",
+        username: 'admin',
+        password: '123456',
       },
       loginRule: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
+          { required: true, message: '请输入用户名', trigger: 'blur' },
           {
             min: 3,
             max: 10,
-            message: "长度在 3 到 10 个字符",
-            trigger: "blur",
+            message: '长度在 3 到 10 个字符',
+            trigger: 'blur',
           },
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { required: true, message: '请输入密码', trigger: 'blur' },
           {
             min: 6,
             max: 20,
-            message: "长度在 6 到 20 个字符",
-            trigger: "blur",
+            message: '长度在 6 到 20 个字符',
+            trigger: 'blur',
           },
         ],
       },
-    };
+    }
   },
   methods: {
     // 表单重置
     resetlogin() {
-      this.$refs.loginRef.resetFields();
+      this.$refs.loginRef.resetFields()
     },
     // 表单预校验
     submitlogin() {
       this.$refs.loginRef.validate(async (valid) => {
         if (valid) {
-          const { data: res } = await this.$http.post("login", this.loginForm);
-          console.log(res);
-          if (res.meta.status !== 200) return this.$message.error("登录失败");
-          this.$message.success("登录成功");
+          const { data: res } = await this.$http.post('login', this.loginForm)
+          console.log(res)
+          if (res.meta.status !== 200) return this.$message.error('登录失败')
+          this.$message.success('登录成功')
           //  1．将登录成功之后的token，保存到客户端的sessionStorage中
           //    1.1项目中出了登录之外的其他API接口，必须在登录之后才能访问
           //    1.2 token只应在当前网站打开期间生效，所以将 token保存在sessionStorage中
           //2．通过编程式导航跳转到后台主页，路由地址是/home
-          window.sessionStorage.setItem("token", res.data.token);
-          this.$router.push("/home");
+          window.sessionStorage.setItem('token', res.data.token)
+          this.$router.push('/home')
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 <style lang="less" scoped>
 .login_contaniner {
